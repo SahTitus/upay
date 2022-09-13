@@ -7,12 +7,14 @@ import styles from "../styles/Invoice.module.css";
 const DownPdf = ({ rootElementId, fileName }) => {
   const downloadPdfDocument = () => {
     const input = document.getElementById(rootElementId);
+    
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0);
+      pdf.addImage(imgData, "JPEG", 60, 30, 90, 90);
       pdf.save(`${fileName} invoice .pdf`);
     });
+  
   };
 
   return (
