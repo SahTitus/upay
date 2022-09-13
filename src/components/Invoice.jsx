@@ -1,8 +1,7 @@
 import React from "react";
-import html2pdf from "html2pdf.js";
 import styles from "../styles/Invoice.module.css";
-import { Button } from "@mui/material";
 import { useStateContex } from "../store/StateProvider";
+import DownPdf from "../utils/DownloadPdf";
 
 const Invoice = () => {
   const profile = JSON.parse(localStorage.getItem("profile"));
@@ -10,28 +9,10 @@ const Invoice = () => {
 
   const { payData } = useStateContex();
 
-  const download = () => {
-    const htmlFormat = document.getElementById("myInvoicePdfDownload");
-    const opt = {
-      margin: 0,
-      filename: `${user.name + ".pdf"}`,
-      html2canvas: { width: 2300, height: 2000, scale: 2 },
-      jsPDF: { unit: "px", format: [1754, 1980] },
-    };
-
-    html2pdf()
-      .from(htmlFormat)
-      .set(opt)
-      .toPdf()
-      .get("pdf")
-      .then(() => {})
-      .save();
-  };
-
   return (
     <div className={styles.invoice__container}>
-      <div id="myInvoicePdfDownload" className={styles.invoice__container2}>
-    <div  className={styles.invoice}>
+      <div  className={styles.invoice__container2}>
+    <div id="myInvoicePdfDownload"  className={styles.invoice}>
       <div className={styles.invoice__top}>
         <img src={""} alt="" />
         <h1>UPAY</h1>
@@ -69,9 +50,10 @@ const Invoice = () => {
     </div>
    
     </div>
-    <div className={styles.downloadButton}>
-      <Button className={styles.button}  onClick={download}>Download Invoice</Button>
-    </div>
+   <DownPdf
+   fileName={user?.name + payData.paymentType} 
+   rootElementId="myInvoicePdfDownload" 
+   />
     </div>
   );
 };
