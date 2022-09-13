@@ -71,7 +71,7 @@ const Navbar = () => {
             </Avatar>
             <div className={styles.side__userInfo}>
               <p>{user?.result?.name}</p>
-              <span>{user?.result?.email}</span>
+              <span>{user?.result?.indexNo || user?.result?.email}</span>
             </div>
           </>
         ) : <div className={`${styles.navbar__topColor}`}></div>}

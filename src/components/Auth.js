@@ -1,6 +1,7 @@
 import {
   AlternateEmail,
   Class,
+  Key,
   Lock,
   Person,
   School,
@@ -25,11 +26,13 @@ import { signin, signup, updateUser } from "../actions/auth";
 import { ImageFill } from "react-bootstrap-icons";
 import Resizer from "react-image-file-resizer";
 
+
 const initialState = {
   name: "",
   email: "",
   program: "",
   level: "",
+  indexNo: "",
   password: "",
   confirmPassword: "",
 };
@@ -46,6 +49,8 @@ const Auth = () => {
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
+
+  const indexCond = formData?.indexNo?.startsWith("UEB");
 
   const handleClose = () => {
     setOpen(false);
@@ -130,7 +135,7 @@ const Auth = () => {
     if (formData.password || formData.confirmPassword) {
       if (
         hasWhiteSpace(formData?.password) ||
-        hasWhiteSpace(formData?.confirmPassword)
+        hasWhiteSpace(formData?.confirmPassword) 
       ) {
         setHasSpace(true);
       }
@@ -152,6 +157,7 @@ const Auth = () => {
     !formData?.email?.trim() ||
     !formData?.password?.length > 0 ||
     !formData?.password?.trim() ||
+   ( !indexCond && formData.indexNo) ||
     (!user &&
       (!formData?.level ||
         !formData?.name?.length > 0 ||
@@ -215,6 +221,27 @@ const Auth = () => {
                   className={styles.auth_input}
                   name="program"
                   value={formData.program}
+                />
+              </Box>
+              <Box
+                id={styles.auth_inputBox}
+                sx={{ display: "flex", alignItems: "flex-end" }}
+              >
+                <Key sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                <TextField
+                  onChange={handleChange}
+                  id={styles.auth_input}
+                  required
+                  label="Index Number"
+                  variant="standard"
+                  className={styles.auth_input}
+                  name="indexNo"
+                  value={formData.indexNo}
+                  error={ formData.indexNo && !indexCond}
+                 
+                  helperText={
+                    !indexCond && formData.indexNo ? "Index number must start with UEB" : null
+                  }
                 />
               </Box>
               <Box

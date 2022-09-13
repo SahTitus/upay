@@ -47,6 +47,7 @@ padding-bottom: 40px;
   color: #fff;
   justify-content: center;
   border-bottom: 2px dotted rgb(224, 221, 221);
+  margin-top: 20px;
 }
 
 .invoice__body {
@@ -84,6 +85,10 @@ padding-bottom: 40px;
   font-size: 17px;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   /* font-weight: 500; */
+}
+
+.date {
+  margin-left: 5px;
 }
 
 .payment__info {

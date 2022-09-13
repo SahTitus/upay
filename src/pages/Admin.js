@@ -144,7 +144,7 @@ const Admin = () => {
                       key={i + data.amount}
                       name={user.name}
                       image={data.image}
-                      id={124849356}
+                      indexNo={data?.indexNo}
                       status={data.status === "success" ? true : false}
                       dep={user.program}
                       amount={data.amount}

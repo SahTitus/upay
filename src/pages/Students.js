@@ -56,6 +56,7 @@ const Students = () => {
               level={user.level}
               program={user.program}
               email={user.email}
+              indexNo={user?.indexNo}
             />
           ))
         )}

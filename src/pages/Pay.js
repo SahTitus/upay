@@ -9,6 +9,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { CircleFill } from "react-bootstrap-icons";
 import { usePaystackPayment } from "react-paystack";
@@ -48,8 +49,10 @@ const Pay = () => {
     const transData = {
       amount: formData.amount,
       paymentType: formData.type,
+      email: user.email,
       level: formData.level,
       status: reference.status,
+      timestamp:   moment().format("D MMMM YYYY, h:mm a")
     };
 
     setPayData(transData)

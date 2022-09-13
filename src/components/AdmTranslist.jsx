@@ -16,16 +16,7 @@ const AdmTranslist = ({
   amount,
   status,
 }) => {
-  const date = moment(users?.timestamp).format(" MMMM Do YYYY, h:mm");
-  const user = JSON.parse(localStorage.getItem("profile"));
   return (
-    // <div className={styles.tables__headings}>
-    // <h4 className={styles.tables__heading}>Name</h4>
-    // <h4 className={styles.tables__heading}>Student</h4>
-    // <h4 className={styles.tables__heading}>ID</h4>
-    // <h4 className={styles.tables__heading}>Department</h4>
-    // <h4>Status</h4>
-    // </div>
     <>
       <div className={styles.trans__table}>
         <div className={styles.table__columns}>
@@ -37,17 +28,24 @@ const AdmTranslist = ({
                 className={`${styles.column__info} ${styles.column__infoLeft}`}
               >
                 <div className={styles.imge}>
-                {user?.result?.image ? <img className={styles.large__image} src={user?.result?.image} alt="oh" /> : <PersonFill className={styles.personFill}/>}
- 
+                  {user?.result?.image ? (
+                    <img
+                      className={styles.large__image}
+                      src={user?.result?.image}
+                      alt="oh"
+                    />
+                  ) : (
+                    <PersonFill className={styles.personFill} />
+                  )}
                 </div>
-              <p>  {user.name}</p>
+                <p> {user.name}</p>
               </div>
             ))
           )}
         </div>
         <div className={styles.table__columns}>
           <h4 className={styles.tables__heading}>ID</h4>
-          {/* <div className={styles.column__info}>{data.id}</div> */}
+
           {users?.map((user, i) =>
             user.transData.map((data) => (
               <div
@@ -61,7 +59,7 @@ const AdmTranslist = ({
         </div>
         <div className={`${styles.table__columns} ${styles.columnProgram}`}>
           <h4 className={styles.tables__heading}>Department</h4>
-          {/* <div className={styles.column__info}> <p>{data.dep}</p></div> */}
+
           {users?.map((user, i) =>
             user.transData.map((data) => (
               <div
@@ -104,14 +102,18 @@ const AdmTranslist = ({
       <div className={styles.histories}>
         <div className={styles.listItem}>
           <div className={styles.image}>
-            {image ? <img className={styles.list__image} src={image} alt="oh" /> : <PersonFill className={styles.personFill}/>}
+            {image ? (
+              <img className={styles.list__image} src={image} alt="oh" />
+            ) : (
+              <PersonFill className={styles.personFill} />
+            )}
           </div>
           <div className={styles.info}>
             <p className={styles.title}>
               {name} <span> {id}</span>
             </p>
 
-            <span className={styles.timestamp}>{date}</span>
+            <span className={styles.timestamp}>{timestamp}</span>
           </div>
           <div className={styles.status}>
             <strong>GHS {amount}</strong>

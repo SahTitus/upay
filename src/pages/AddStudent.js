@@ -2,6 +2,7 @@ import {
   AlternateEmail,
   ArrowBack,
   Class,
+  Key,
   Lock,
   Person,
   School,
@@ -24,7 +25,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signup, updateUser } from "../actions/auth";
 import { useStateContex } from "../store/StateProvider";
-import Navbar from "../components/Navbar";
 
 const initialState = {
   name: "",
@@ -32,7 +32,7 @@ const initialState = {
   program: "",
   level: "",
   image:"",
-  goId: "",
+  indexNo: "",
   password: "",
   confirmPassword: "",
 };
@@ -100,6 +100,8 @@ const AddStudent = () => {
     }
   }, [currentId && isAdmin]);
 
+  const indexCond = formData.indexNo.startsWith("UEB");
+
   function hasWhiteSpace(s) {
     return s.indexOf(" ") >= 0;
   }
@@ -109,6 +111,7 @@ const AddStudent = () => {
   const disableBtn =
     !formData?.name?.length > 0 ||
     !formData?.email?.length > 0 ||
+    ( !indexCond && formData.indexNo) ||
     !formData?.email?.trim() ||
     !formData?.password?.length > 0 ||
     !formData?.password?.trim() ||
@@ -182,6 +185,28 @@ const AddStudent = () => {
             name="program"
           />
         </Box>
+
+              <Box
+                id={styles.auth_inputBox}
+                sx={{ display: "flex", alignItems: "flex-end" }}
+              >
+                <Key sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                <TextField
+                  onChange={handleChange}
+                  id={styles.auth_input}
+                  required
+                  label="Index Number"
+                  variant="standard"
+                  className={styles.auth_input}
+                  name="indexNo"
+                  value={formData.indexNo}
+                  error={ formData.indexNo && !indexCond}
+                 
+                  helperText={
+                    !indexCond && formData.indexNo ? "Index number must start with UEB" : null
+                  }
+                />
+              </Box>
         <Box
           id={styles.auth_inputBox}
           sx={{ display: "flex", alignItems: "center" }}

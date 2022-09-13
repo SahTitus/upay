@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/Histories.module.css";
 // import av from "../images/av.svg";
 
-const Histories = ({ failed, level, status, amount }) => {
+const Histories = ({ failed, level, timestamp, status, amount }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   return (
@@ -20,7 +20,7 @@ const Histories = ({ failed, level, status, amount }) => {
           ) : (
             <span>You have successfully paid an amount of GHS{amount}</span>
           )}
-          <span className={styles.timestamp}>16 Oct 2022, 10:20AM</span>
+          <span className={styles.timestamp}>{timestamp}</span>
         </div>
         <div className={styles.status}>
           <strong>GHS {amount}</strong>

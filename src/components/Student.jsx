@@ -7,7 +7,7 @@ import { deleteUser } from "../actions/auth";
 import { useStateContex } from "../store/StateProvider";
 import styles from "../styles/Student.module.css";
 
-const Student = ({email, id, name, program, level, timestamp}) => {
+const Student = ({email, indexNo, id, name, program, level, timestamp}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { setCurrentId, setIsAdmin } = useStateContex();
@@ -26,7 +26,7 @@ navigate('/addstudent')
           <div className={styles.student__info}>
             <p>{name} <span className={styles.student__level}>Level {level}</span></p>
             <span className={styles.student__course}>{program}</span>
-            <span className={styles.student__email}> {email}</span>
+            <span className={styles.student__email}> {indexNo || email}</span>
           </div>
         </div>
 

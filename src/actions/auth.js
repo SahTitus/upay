@@ -49,9 +49,10 @@ export const updateUser =
     try {
       const { data } = await api.updateUser(id, userData);
 
-      dispatch(editUser(data));
+    
       if (goToDashboard) {
         navigate("/profile");
+        dispatch(editUser(data));
       } else {
         navigate("/students");
       }
@@ -75,9 +76,9 @@ export const addFees = (id, userData, navigate) => async (dispatch) => {
 export const makePayment = (id, userData, navigate) => async (dispatch) => {
   dispatch(isLoading());
   try {
-    const updatedUser = await api.makePayment(id, userData);
+    const {data} = await api.makePayment(id, userData);
 
-    dispatch(editUser(updatedUser));
+    dispatch(editUser(data));
     navigate("/invoices");
   } catch (error) {
     dispatch(isError(error?.response?.data));

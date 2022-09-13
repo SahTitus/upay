@@ -55,7 +55,7 @@ const Profile = () => {
   return (
     <div className={styles.profile}>
       <div className={styles.profile__header}>
-        <ArrowBack onClick={() => navigate(-1)} />
+        <ArrowBack onClick={() => navigate('/')} />
       </div>
       <div className={styles.profile__card}>
 

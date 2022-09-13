@@ -3,10 +3,10 @@ import html2pdf from "html2pdf.js";
 import styles from "../styles/Invoice.module.css";
 import { Button } from "@mui/material";
 import { useStateContex } from "../store/StateProvider";
-// import { Stream } from "@mui/icons-material";
 
 const Invoice = () => {
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const profile = JSON.parse(localStorage.getItem("profile"));
+  const user = profile.result
 
   const { payData } = useStateContex();
 
@@ -14,7 +14,7 @@ const Invoice = () => {
     const htmlFormat = document.getElementById("myInvoicePdfDownload");
     const opt = {
       margin: 0,
-      filename: `${user.result.name + ".pdf"}`,
+      filename: `${user.name + ".pdf"}`,
       html2canvas: { width: 2300, height: 2000, scale: 2 },
       jsPDF: { unit: "px", format: [1754, 1980] },
     };
@@ -40,14 +40,14 @@ const Invoice = () => {
         <div className={styles.student__infoContainer}>
           <div className={styles.studentInfo}>
             <p className={styles.studHeadings}>Receipt for</p>
-            <p>{user.result?.name}</p>
-            <p>{user.result?.email}</p>
-            <p>{user.result?.program}</p>
+            <p>{user?.name}</p>
+            <p>{user?.indexNo || user?.email}</p>
+            <p>{user?.program}</p>
             <p> Level {payData?.level}</p>
           </div>
           <div className={styles.payment__date}>
             <p className={styles.studHeadings}>Payment date</p>
-            <p>8/09/2022</p>
+            <p className={styles.date}>{payData.timestamp}</p>
           </div>
         </div>
         <div className={styles.payment__infoContainer}>

@@ -7,12 +7,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Invoices = () => {
   const navigate = useNavigate();
-  
+
   return (
     <div className={styles.invoices}>
-         <div className="arrowBack__navbar">
+         <div className="addStudent__navbar">
         {/* <Sidebar toggleSlider={toggleSlider} open={open} setOpen={setOpen} /> */}
-        <IconButton onClick={() => navigate(-1)} className={styles.menu}>
+        <IconButton onClick={() => navigate('/')} className={styles.menu}>
           <ArrowBack />
         </IconButton>
       </div>

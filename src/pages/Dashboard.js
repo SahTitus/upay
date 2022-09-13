@@ -145,6 +145,7 @@ const Dashboard = () => {
                 amount={data.amount}
                 level={data.level}
                 failed={data.status}
+                timestamp={data.timestamp}
               />
             );
           })
