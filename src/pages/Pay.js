@@ -110,10 +110,10 @@ const Pay = () => {
   
   return (
     <div className={styles.pay}>
-            <div className="arrowBack__navbar">
+            <div className="arrowBack__navbar payNavbar">
         {/* <Sidebar toggleSlider={toggleSlider} open={open} setOpen={setOpen} /> */}
         <IconButton onClick={() => navigate(-1)} className={styles.menu}>
-          <ArrowBack />
+          <ArrowBack className={styles.pay__arrowBack}/>
         </IconButton>
       </div>
       <div className={styles.form__container}>

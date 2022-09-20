@@ -138,7 +138,7 @@ const Admin = () => {
           ) : (
             <>
               <div className={styles.mobile__list}>
-                {users.map((user, i) =>
+                {sortTransHistory.map((user, i) =>
                   user.transData.map((data) => (
                     <AdmTranslist
                       key={i + data.amount}

@@ -22,7 +22,6 @@ export const getUsers = () => async (dispatch) => {
 };
 export const getUser = (id) => async (dispatch) => {
   dispatch(isLoading());
-
   try {
     const { data } = await api.fetchUser(id);
 

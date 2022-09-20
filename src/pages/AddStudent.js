@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signup, updateUser } from "../actions/auth";
 import { useStateContex } from "../store/StateProvider";
+import * as programs from "../constants/programs/programs.js";
 
 const initialState = {
   name: "",
@@ -57,10 +58,17 @@ const AddStudent = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setOpenPro(false);
   };
+  
+  const [openPro, setOpenPro] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
+  };
+
+  const handleOpenPro = () => {
+    setOpenPro(true);
   };
 
   const handleChange = (e) => {
@@ -111,12 +119,12 @@ const AddStudent = () => {
   const disableBtn =
     !formData?.name?.length > 0 ||
     !formData?.email?.length > 0 ||
-    ( !indexCond && formData.indexNo) ||
+    ( !indexCond && !formData.indexNo.length > 0) ||
     !formData?.email?.trim() ||
     !formData?.password?.length > 0 ||
     !formData?.password?.trim() ||
     !formData?.level ||
-    hasSpace;
+    hasSpace ||  hasWhiteSpace(formData?.indexNo);
 
    const goBack = () => {
     setCurrentId(null)
@@ -169,7 +177,7 @@ const AddStudent = () => {
             name="name"
           />
         </Box>
-        <Box
+        {/* <Box
           id={styles.auth_inputBox}
           sx={{ display: "flex", alignItems: "flex-end" }}
         >
@@ -184,7 +192,40 @@ const AddStudent = () => {
             value={formData.program}
             name="program"
           />
-        </Box>
+        </Box> */}
+
+<Box
+                id={styles.auth_inputBox}
+                sx={{ display: "flex", alignItems: "center" }}
+                fullWidth="true"
+              >
+                       <School sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+
+                  <FormControl   fullWidth="true" sx={{ m: 1, minWidth: 200 }}>
+                    <InputLabel id="demo-controlled-open-select-label">
+                    Program
+                    </InputLabel>
+                    <Select
+                    fullWidth="true"
+                      labelId="demo-controlled-open-select-label"
+                      id="demo-controlled-open-select"
+                      open={openPro}
+                      onClose={handleClose}
+                      onOpen={handleOpenPro}
+                      name="program"
+                      label="Program"
+                      value={formData.program}
+                      onChange={handleChange}
+                    >
+                      {programs.courses.map((course, i)=>(
+                        <MenuItem key={i} value={course}>{course}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+         
+              </Box>
+
+
 
               <Box
                 id={styles.auth_inputBox}
@@ -203,7 +244,7 @@ const AddStudent = () => {
                   error={ formData.indexNo && !indexCond}
                  
                   helperText={
-                    !indexCond && formData.indexNo ? "Index number must start with UEB" : null
+                    (!indexCond && formData.indexNo) || hasWhiteSpace(formData?.indexNo) ? "Index number must start with UEB and there should not be white spaces" : null
                   }
                 />
               </Box>

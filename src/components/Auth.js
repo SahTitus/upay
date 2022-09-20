@@ -19,6 +19,7 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
+import * as programs from "../constants/programs/programs.js";
 import styles from "../styles/Auth.module.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -49,15 +50,20 @@ const Auth = () => {
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
+  const [openPro, setOpenPro] = React.useState(false);
 
   const indexCond = formData?.indexNo?.startsWith("UEB");
 
   const handleClose = () => {
     setOpen(false);
+    setOpenPro(false);
   };
 
   const handleOpen = () => {
     setOpen(true);
+  };
+  const handleOpenPro = () => {
+    setOpenPro(true);
   };
 
   useEffect(() => {
@@ -157,11 +163,11 @@ const Auth = () => {
     !formData?.email?.trim() ||
     !formData?.password?.length > 0 ||
     !formData?.password?.trim() ||
-   ( !indexCond && formData.indexNo) ||
+ 
     (!user &&
       (!formData?.level ||
-        !formData?.name?.length > 0 ||
-        !formData?.confirmPassword)) ||
+        !formData?.name?.length > 0 ||  ( !indexCond || !formData.indexNo.length > 0) ||
+        !formData?.confirmPassword)) ||  hasWhiteSpace(formData?.indexNo) ||
     hasSpace ||
     doesMatch;
 
@@ -207,7 +213,40 @@ const Auth = () => {
                   value={formData.name}
                 />
               </Box>
+
               <Box
+                id={styles.auth_inputBox}
+                sx={{ display: "flex", alignItems: "center" }}
+                fullWidth="true"
+              >
+                       <School sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+
+                  <FormControl   fullWidth="true" sx={{ m: 1, minWidth: 200 }}>
+                    <InputLabel id="demo-controlled-open-select-label">
+                    Program
+                    </InputLabel>
+                    <Select
+                    fullWidth="true"
+                      labelId="demo-controlled-open-select-label"
+                      id="demo-controlled-open-select"
+                      open={openPro}
+                      onClose={handleClose}
+                      onOpen={handleOpenPro}
+                      name="program"
+                      label="Program"
+                      value={formData.program}
+                      onChange={handleChange}
+                    >
+                   {programs.courses.map((course, i)=>(
+                        <MenuItem key={i} value={course}>{course}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+         
+              </Box>
+
+
+              {/* <Box
                 id={styles.auth_inputBox}
                 sx={{ display: "flex", alignItems: "flex-end" }}
               >
@@ -222,7 +261,7 @@ const Auth = () => {
                   name="program"
                   value={formData.program}
                 />
-              </Box>
+              </Box> */}
               <Box
                 id={styles.auth_inputBox}
                 sx={{ display: "flex", alignItems: "flex-end" }}
@@ -237,10 +276,10 @@ const Auth = () => {
                   className={styles.auth_input}
                   name="indexNo"
                   value={formData.indexNo}
-                  error={ formData.indexNo && !indexCond}
+                  error={ (!indexCond && formData.indexNo) || hasWhiteSpace(formData?.indexNo)}
                  
                   helperText={
-                    !indexCond && formData.indexNo ? "Index number must start with UEB" : null
+                    (!indexCond && formData.indexNo) || hasWhiteSpace(formData?.indexNo) ? "Index number must start with UEB and there should not be white spaces" : null
                   }
                 />
               </Box>

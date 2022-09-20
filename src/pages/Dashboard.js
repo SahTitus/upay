@@ -10,9 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 const Dashboard = () => {
   const userLocal = JSON.parse(localStorage.getItem("profile"));
-  const { user, users, isLoading } = useSelector(
-    (state) => state.auth
-  );
+  const { user, users, isLoading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const id = userLocal?.result?._id;
@@ -65,21 +63,30 @@ const Dashboard = () => {
 
   const payableFees = () => {
     if (parseInt(user?.level) === 100) {
- 
-      return sumEarnings(myFees?.flat()).toFixed(2) - sumEarnings(level100Fees?.flat()).toFixed(2);
+      return (
+        sumEarnings(myFees?.flat()).toFixed(2) -
+        sumEarnings(level100Fees?.flat()).toFixed(2)
+      );
     } else if (parseInt(user?.level) === 200) {
-      return sumEarnings(myFees?.flat()).toFixed(2) - sumEarnings(level200Fees?.flat()).toFixed(2);
+      return (
+        sumEarnings(myFees?.flat()).toFixed(2) -
+        sumEarnings(level200Fees?.flat()).toFixed(2)
+      );
     } else if (parseInt(user?.level) === 300) {
-      return sumEarnings(myFees?.flat()).toFixed(2) - sumEarnings(level300Fees?.flat()).toFixed(2);
+      return (
+        sumEarnings(myFees?.flat()).toFixed(2) -
+        sumEarnings(level300Fees?.flat()).toFixed(2)
+      );
     } else {
-      return sumEarnings(myFees?.flat()).toFixed(2) - sumEarnings(level400Fees?.flat()).toFixed(2);
-      
+      return (
+        sumEarnings(myFees?.flat()).toFixed(2) -
+        sumEarnings(level400Fees?.flat()).toFixed(2)
+      );
     }
-
   };
 
-
-    // const payableFees = ;
+  // const payableFees = ;
+  const disableBtn = payableFees() === 0 || payableFees() < 0;
 
   return (
     <div className={styles.dashboard}>
@@ -90,10 +97,36 @@ const Dashboard = () => {
           <div className={styles.toPay}>
             <p>Hi {userLocal?.result?.name?.split(" ")[0]},</p>
             <h4>Payable Fee</h4>
-            <strong>GHS {payableFees()}</strong>
-            <Link className={styles.paynowLink} to="/pay">
-              <Button className={styles.paynow}> Pay Now</Button>
-            </Link>
+            <strong>
+              GHS {payableFees() < 0 ? 0 : payableFees().toFixed(2)}
+            </strong>
+            {payableFees() < 0 && (
+              <p className={styles.balance}>
+                Balance: GHS {(payableFees() * -1).toFixed(2)}
+              </p>
+            )}
+
+            {disableBtn ? (
+              <Button
+                disabled={disableBtn}
+                className={`${styles.paynow} ${
+                  disableBtn && styles.disablePayNowBtn
+                }`}
+              >
+                {" "}
+                Pay Now
+              </Button>
+            ) : (
+              <Link className={styles.paynowLink} to="/pay">
+                <Button
+                  className={`${styles.paynow}
+                  `}
+                >
+                  {" "}
+                  Pay Now
+                </Button>
+              </Link>
+            )}
           </div>
           <img src={av} alt="avatar" className={styles.avatarSvg} />
         </div>

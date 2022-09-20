@@ -38,6 +38,10 @@
     padding: 6px 10px;	
 }
 
+.payNavbar {
+	background-color: #d1cde44b;
+}
+
 .addStudent__navbar {
 	display: flex;
     align-items: center;

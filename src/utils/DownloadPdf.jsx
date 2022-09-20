@@ -20,7 +20,7 @@ const DownPdf = ({ rootElementId, fileName }) => {
   return (
     <div className={styles.downloadButton}>
       <Button className={styles.button} onClick={downloadPdfDocument}>
-        Download Invoice
+       Print
       </Button>
     </div>
   );

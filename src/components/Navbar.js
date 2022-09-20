@@ -24,8 +24,6 @@ const listItems = [
     add: false,
     link: "/",
   },
-
-
 ];
 
 const Navbar = () => {
@@ -43,7 +41,7 @@ const Navbar = () => {
   const handleAddStu = () => {
     setIsAdmin(false);
     // window.location.reload(true);
-    navigate('/addstudent');
+    navigate("/addstudent");
   };
 
   const logOut = () => {
@@ -66,15 +64,16 @@ const Navbar = () => {
               src={user?.result?.image}
               alt="Juaneme8"
             >
-              {
-                user?.result?.name.charAt(0)}{" "}
+              {user?.result?.name.charAt(0)}{" "}
             </Avatar>
             <div className={styles.side__userInfo}>
               <p>{user?.result?.name}</p>
               <span>{user?.result?.indexNo || user?.result?.email}</span>
             </div>
           </>
-        ) : <div className={`${styles.navbar__topColor}`}></div>}
+        ) : (
+          <div className={`${styles.navbar__topColor}`}></div>
+        )}
       </div>
       <Divider />
       <List>
@@ -93,33 +92,25 @@ const Navbar = () => {
           </Link>
         ))}
 
-{!admin && (
-        <Link className={styles.link} to="/pay">
-          <ListItem
-            
-            button
-            className={`${styles.drawer__listItem} `}
-          >
-            <div className={styles.drawer__listIcon}>
-            <Paid />
-            </div>
-            <div className={styles.drawer__listText}>Make payment</div>
-          </ListItem>
+        {!admin && (
+          <Link className={styles.link} to="/pay">
+            <ListItem button className={`${styles.drawer__listItem} `}>
+              <div className={styles.drawer__listIcon}>
+                <Paid />
+              </div>
+              <div className={styles.drawer__listText}>Make payment</div>
+            </ListItem>
           </Link>
         )}
 
         {admin && (
-        <Link className={styles.link} to="/students">
-          <ListItem
-            
-            button
-            className={`${styles.drawer__listItem} `}
-          >
-            <div className={styles.drawer__listIcon}>
-            <People />
-            </div>
-            <div className={styles.drawer__listText}>Students</div>
-          </ListItem>
+          <Link className={styles.link} to="/students">
+            <ListItem button className={`${styles.drawer__listItem} `}>
+              <div className={styles.drawer__listIcon}>
+                <People />
+              </div>
+              <div className={styles.drawer__listText}>Students</div>
+            </ListItem>
           </Link>
         )}
         {!user ? (
@@ -167,14 +158,13 @@ const Navbar = () => {
       </IconButton>
       <Link to="/profile">
         <IconButton className={styles.avatar_container}>
-        <Avatar
-              className={styles.side__avatar}
-              src={user?.result?.image}
-              alt="Juaneme8"
-            >
-              {
-                user?.result?.name.charAt(0)}{" "}
-            </Avatar>
+          <Avatar
+            className={styles.side__avatar}
+            src={user?.result?.image}
+            alt="Juaneme8"
+          >
+            {user?.result?.name.charAt(0)}{" "}
+          </Avatar>
         </IconButton>
       </Link>
       <Drawer

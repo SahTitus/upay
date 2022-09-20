@@ -16,13 +16,14 @@ import { useNavigate } from "react-router-dom";
 import { addFees, getAdmin } from "../actions/auth";
 import { useStateContex } from "../store/StateProvider";
 import styles from "../styles/Pay.module.css";
-  
+import * as programs from "../constants/programs/programs.js";
 
 const Pay = () => {
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
 
   const [openLevel, setOpenLevel] = React.useState(false);
+  const [openPro, setOpenPro] = React.useState(false);
 
   const [formData, setFormData] = useState({
     amount: "",
@@ -32,27 +33,29 @@ const Pay = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { setAmountToPay,  isAdmin } = useStateContex();
+  const { setAmountToPay, isAdmin } = useStateContex();
   const admin = JSON.parse(localStorage.getItem("admin"));
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
-    useEffect(() => {
-      setAmountToPay(formData.amount);
-    }, [formData.amount]);
+  useEffect(() => {
+    setAmountToPay(formData.amount);
+  }, [formData.amount]);
 
   const handleClose = () => {
     setOpenLevel(false);
+    setOpenPro(false);
   };
 
   const handleOpen = (a, b) => {
     if (a) {
-
       setOpenLevel(false);
     } else {
-
       setOpenLevel(true);
     }
+  };
+  const handleOpenPro = () => {
+    setOpenPro(true);
   };
 
   const handleChange = (e) => {
@@ -68,9 +71,8 @@ const Pay = () => {
   const handleSave = (e) => {
     e.preventDefault();
     dispatch(addFees(admin?._id || admin.result._id, formData, navigate));
-
   };
-  
+
   const isNumber = isNaN(+formData?.amount) || hasWhiteSpace(formData?.amount);
   const disable =
     !formData?.amount.length ||
@@ -88,10 +90,13 @@ const Pay = () => {
 
   return (
     <div className={styles.pay}>
-      <div className="arrowBack__navbar">
+      <div >
         {/* <Sidebar toggleSlider={toggleSlider} open={open} setOpen={setOpen} /> */}
-        <IconButton onClick={() => navigate(isAdmin ? -1 : '/')} className={styles.menu}>
-          <ArrowBack />
+        <IconButton
+          onClick={() => navigate(isAdmin ? -1 : "/")}
+          className={`${styles.closeFeesForm} ${styles.menu}`}
+        >
+          <ArrowBack className={styles.pay__arrowBack}/>
         </IconButton>
       </div>
       <div className={styles.form__container}>
@@ -120,32 +125,63 @@ const Pay = () => {
                   required
                   label="Password"
                   variant="outlined"
-                  type='password'
+                  type="password"
                   value={formData.password}
                   className={styles.pay__input}
                   name="password"
                 />
               </Box>
             ) : (
+              // <Box
+              //   id={styles.auth_inputBox}
+              //   sx={{ display: "flex" }}
+              //   className={styles.pay__typeInput}
+              // >
+              //   <TextField
+              //     error={isNumber}
+              //     helperText={isNumber ? "Enter a valid data." : null}
+              //     onChange={handleChange}
+              //     fullWidth
+              //     id={styles.pay_input}
+              //     required
+              //     label="Program"
+              //     variant="outlined"
+              //     value={formData.program}
+              //     className={styles.pay__input}
+              //     name="program"
+              //   />
+              // </Box>
+
               <Box
-                id={styles.auth_inputBox}
-                sx={{ display: "flex" }}
-                className={styles.pay__typeInput}
-              >
-                <TextField
-                  error={isNumber}
-                  helperText={isNumber ? "Enter a valid data." : null}
-                  onChange={handleChange}
-                  fullWidth
-                  id={styles.pay_input}
-                  required
-                  label="Program"
-                  variant="outlined"
-                  value={formData.program}
-                  className={styles.pay__input}
-                  name="program"
-                />
-              </Box>
+              id={styles.auth_inputBox}
+              sx={{ display: "flex", alignItems: "center" }}
+              fullWidth="true"
+            >
+                     {/* <School sx={{ color: "action.active", mr: 1, my: 0.5 }} /> */}
+
+                <FormControl   fullWidth="true" sx={{ m: 1, minWidth: 200 }}>
+                  <InputLabel id="demo-controlled-open-select-label">
+                  Program
+                  </InputLabel>
+                  <Select
+                  fullWidth="true"
+                    labelId="demo-controlled-open-select-label"
+                    id="demo-controlled-open-select"
+                    open={openPro}
+                    onClose={handleClose}
+                    onOpen={handleOpenPro}
+                    name="program"
+                    label="Program"
+                    value={formData.program}
+                    onChange={handleChange}
+                  >
+                    {programs.courses.map(course=>(
+                      <MenuItem value={course}>{course}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+       
+            </Box>
             )}
           </div>
           <div className={styles.pay__inputFlex}>

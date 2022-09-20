@@ -27,7 +27,7 @@
   /* align-items: center; */
   justify-content: center;
 
-  height: 170px;
+  height: 200px;
   z-index: 100;
   margin-top: 60px;
 }
@@ -67,10 +67,20 @@ strong {
   margin-top: -12px;
 }
 
+
+.balance{
+  margin-bottom: 15px;
+  color: #465366;
+}
+
 .paynow {
   background-color: #0267ff !important;
   color: white !important;
   width: 160px;
+}
+
+.disablePayNowBtn {
+  background-color: #98a8c9 !important;
 }
 
 .avatarSvg {
