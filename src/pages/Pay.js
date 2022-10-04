@@ -21,9 +21,6 @@ import styles from "../styles/Pay.module.css";
 import usePaystack from "../utils/Paystack";
 
 const Pay = () => {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-
   const [openLevel, setOpenLevel] = React.useState(false);
   const [openType, setOpenType] = React.useState(false);
   const [formData, setFormData] = useState({
@@ -34,35 +31,26 @@ const Pay = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { setAmountToPay, setPayData, } = useStateContex();
+  const { setAmountToPay, setPayData } = useStateContex();
   const { payConfig } = usePaystack();
   const initPayment = usePaystackPayment(payConfig);
   const user = JSON.parse(localStorage.getItem("profile"));
 
   const id = user?.result?._id;
 
-
   const onSuccess = (reference) => {
     // Implementation for whatever you want to do with response and after success call.
-
-
     const transData = {
       amount: formData.amount,
       paymentType: formData.type,
       email: user.email,
       level: formData.level,
       status: reference.status,
-      timestamp:   moment().format("D MMMM YYYY, h:mm a")
+      timestamp: moment().format("D MMMM YYYY, h:mm a"),
     };
 
-    setPayData(transData)
+    setPayData(transData);
     dispatch(makePayment(id, transData, navigate));
-  };
-
-  // you can call this function anything
-  const onClose = () => {
-    // implementation for  whatever you want to do when the Paystack dialog closed.
-
   };
 
   useEffect(() => {
@@ -90,7 +78,7 @@ const Pay = () => {
 
   const handlePay = (e) => {
     e.preventDefault();
-    initPayment(onSuccess, onClose);
+    initPayment(onSuccess);
     setFormData({ ...formData, initialState: "" });
   };
   const isNumber = isNaN(+formData.amount) || hasWhiteSpace(formData.amount);
@@ -105,15 +93,14 @@ const Pay = () => {
   }
 
   useEffect(() => {
-    if (!user) navigate("/auth")
-  }, [user])
-  
+    if (!user) navigate("/auth");
+  }, [user]);
+
   return (
     <div className={styles.pay}>
-            <div className="arrowBack__navbar payNavbar">
-        {/* <Sidebar toggleSlider={toggleSlider} open={open} setOpen={setOpen} /> */}
+      <div className="arrowBack__navbar payNavbar">
         <IconButton onClick={() => navigate(-1)} className={styles.menu}>
-          <ArrowBack className={styles.pay__arrowBack}/>
+          <ArrowBack className={styles.pay__arrowBack} />
         </IconButton>
       </div>
       <div className={styles.form__container}>

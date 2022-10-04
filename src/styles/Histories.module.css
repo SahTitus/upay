@@ -23,7 +23,6 @@ padding-bottom: 6px;
 }
 
 .image img {
-    /* position: absolute; */
     height: 30px;
     width: 30px;
     border-radius: 6px;
@@ -39,7 +38,6 @@ padding-bottom: 6px;
 
 .title {
     font-size: 15px;
-    /* font-weight: 500; */
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 

@@ -85,13 +85,11 @@ const Dashboard = () => {
     }
   };
 
-  // const payableFees = ;
   const disableBtn = payableFees() === 0 || payableFees() < 0;
 
   return (
     <div className={styles.dashboard}>
       <Navbar />
-      {/* {showWelcome ? ( <div className={styles.upay}> <h1>WELCOME</h1></div>) : ''} */}
       <div className={styles.panel__wrapper}>
         <div className={styles.panel}>
           <div className={styles.toPay}>

@@ -40,14 +40,12 @@ const Navbar = () => {
 
   const handleAddStu = () => {
     setIsAdmin(false);
-    // window.location.reload(true);
     navigate("/addstudent");
   };
 
   const logOut = () => {
     dispatch(logout());
     window.location.reload(true);
-    // closeDrawer()
   };
 
   const sideList = () => (
@@ -152,7 +150,6 @@ const Navbar = () => {
 
   return (
     <div className={styles.navbar}>
-      {/* <Sidebar toggleSlider={toggleSlider} open={open} setOpen={setOpen} /> */}
       <IconButton onClick={toggleSlider} className={styles.menu}>
         <Menu />
       </IconButton>

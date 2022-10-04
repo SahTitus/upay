@@ -1,10 +1,7 @@
 import React from "react";
-import { Avatar, IconButton } from "@mui/material";
 import styles from "../styles/Admin.module.css";
 import { Check, Clear } from "@mui/icons-material";
-import av from "../images/av.svg";
-import moment from "moment";
-import { Person, PersonFill } from "react-bootstrap-icons";
+import {  PersonFill } from "react-bootstrap-icons";
 
 const AdmTranslist = ({
   users,

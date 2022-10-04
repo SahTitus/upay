@@ -1,24 +1,23 @@
-import React from 'react'
+import React from "react";
 import styles from "../styles/Invoice.module.css";
-import Invoice from '../components/Invoice';
-import { IconButton } from '@mui/material';
-import { ArrowBack } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import Invoice from "../components/Invoice";
+import { IconButton } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Invoices = () => {
   const navigate = useNavigate();
 
   return (
     <div className={styles.invoices}>
-         <div className="addStudent__navbar">
-        {/* <Sidebar toggleSlider={toggleSlider} open={open} setOpen={setOpen} /> */}
-        <IconButton onClick={() => navigate('/')} className={styles.menu}>
+      <div className="addStudent__navbar">
+        <IconButton onClick={() => navigate("/")} className={styles.menu}>
           <ArrowBack />
         </IconButton>
       </div>
-        <Invoice />
+      <Invoice />
     </div>
-  )
-}
+  );
+};
 
-export default Invoices
+export default Invoices;

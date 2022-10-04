@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../styles/Histories.module.css";
-// import av from "../images/av.svg";
 
 const Histories = ({ failed, level, timestamp, status, amount }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -9,7 +8,7 @@ const Histories = ({ failed, level, timestamp, status, amount }) => {
     <div className={styles.histories}>
       <div className={styles.listItem}>
         <div className={styles.image}>
-          <img src={user?.result?.image} alt='oh'/>
+          <img src={user?.result?.image} alt="oh" />
         </div>
         <div className={styles.info}>
           <p className={styles.title}>

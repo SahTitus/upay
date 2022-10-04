@@ -27,7 +27,6 @@ import { signin, signup, updateUser } from "../actions/auth";
 import { ImageFill } from "react-bootstrap-icons";
 import Resizer from "react-image-file-resizer";
 
-
 const initialState = {
   name: "",
   email: "",
@@ -141,7 +140,7 @@ const Auth = () => {
     if (formData.password || formData.confirmPassword) {
       if (
         hasWhiteSpace(formData?.password) ||
-        hasWhiteSpace(formData?.confirmPassword) 
+        hasWhiteSpace(formData?.confirmPassword)
       ) {
         setHasSpace(true);
       }
@@ -149,7 +148,7 @@ const Auth = () => {
   }, []);
 
   function hasWhiteSpace(s) {
-    return s.indexOf(" ") >= 0;
+    return s?.indexOf(" ") >= 0;
   }
 
   const passError =
@@ -163,11 +162,13 @@ const Auth = () => {
     !formData?.email?.trim() ||
     !formData?.password?.length > 0 ||
     !formData?.password?.trim() ||
- 
     (!user &&
       (!formData?.level ||
-        !formData?.name?.length > 0 ||  ( !indexCond || !formData.indexNo.length > 0) ||
-        !formData?.confirmPassword)) ||  hasWhiteSpace(formData?.indexNo) ||
+        !formData?.name?.length > 0 ||
+        !indexCond ||
+        !formData.indexNo.length > 0 ||
+        !formData?.confirmPassword)) ||
+    hasWhiteSpace(formData?.indexNo) ||
     hasSpace ||
     doesMatch;
 
@@ -203,7 +204,6 @@ const Auth = () => {
                 <Person sx={{ color: "action.active", mr: 1, my: 0.5 }} />
                 <TextField
                   onChange={handleChange}
-                  // id={styles.auth_input}
                   id="demo-name"
                   required
                   label="Full name"
@@ -219,49 +219,33 @@ const Auth = () => {
                 sx={{ display: "flex", alignItems: "center" }}
                 fullWidth="true"
               >
-                       <School sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                <School sx={{ color: "action.active", mr: 1, my: 0.5 }} />
 
-                  <FormControl   fullWidth="true" sx={{ m: 1, minWidth: 200 }}>
-                    <InputLabel id="demo-controlled-open-select-label">
+                <FormControl fullWidth="true" sx={{ m: 1, minWidth: 200 }}>
+                  <InputLabel id="demo-controlled-open-select-label">
                     Program
-                    </InputLabel>
-                    <Select
+                  </InputLabel>
+                  <Select
                     fullWidth="true"
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      open={openPro}
-                      onClose={handleClose}
-                      onOpen={handleOpenPro}
-                      name="program"
-                      label="Program"
-                      value={formData.program}
-                      onChange={handleChange}
-                    >
-                   {programs.courses.map((course, i)=>(
-                        <MenuItem key={i} value={course}>{course}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-         
+                    labelId="demo-controlled-open-select-label"
+                    id="demo-controlled-open-select"
+                    open={openPro}
+                    onClose={handleClose}
+                    onOpen={handleOpenPro}
+                    name="program"
+                    label="Program"
+                    value={formData.program}
+                    onChange={handleChange}
+                  >
+                    {programs.courses.map((course, i) => (
+                      <MenuItem key={i} value={course}>
+                        {course}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Box>
 
-
-              {/* <Box
-                id={styles.auth_inputBox}
-                sx={{ display: "flex", alignItems: "flex-end" }}
-              >
-                <School sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-                <TextField
-                  onChange={handleChange}
-                  id={styles.auth_input}
-                  required
-                  label="Program"
-                  variant="standard"
-                  className={styles.auth_input}
-                  name="program"
-                  value={formData.program}
-                />
-              </Box> */}
               <Box
                 id={styles.auth_inputBox}
                 sx={{ display: "flex", alignItems: "flex-end" }}
@@ -276,10 +260,15 @@ const Auth = () => {
                   className={styles.auth_input}
                   name="indexNo"
                   value={formData.indexNo}
-                  error={ (!indexCond && formData.indexNo) || hasWhiteSpace(formData?.indexNo)}
-                 
+                  error={
+                    (!indexCond && formData.indexNo) ||
+                    hasWhiteSpace(formData?.indexNo)
+                  }
                   helperText={
-                    (!indexCond && formData.indexNo) || hasWhiteSpace(formData?.indexNo) ? "Index number must start with UEB and there should not be white spaces" : null
+                    (!indexCond && formData.indexNo) ||
+                    hasWhiteSpace(formData?.indexNo)
+                      ? "Index number must start with UEB and there should not be white spaces"
+                      : null
                   }
                 />
               </Box>
@@ -324,61 +313,69 @@ const Auth = () => {
               />
             </>
           )}
-          <Box
-            id={styles.auth_inputBox}
-            sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              position: "relative",
-            }}
-          >
-            <Lock sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              id={styles.auth_input}
-              className={styles.auth_input}
-              required
-              label="Password"
-              type={showPassword ? "text" : "password"}
-              variant="standard"
-              name="password"
-              error={passError}
-              value={formData.password}
-              helperText={
-                passError ? "Password must be at least 6 characters long" : null
-              }
-            />
-            <IconButton
-              className={`${styles.showPassword} ${passError && styles.errEye}`}
-              onClick={toggleShowPassword}
-            >
-              {!showPassword ? (
-                <VisibilityOff className="showPassword" />
-              ) : (
-                <Visibility className="showPassword" />
+          {!userMe?.result?._id && (
+            <>
+              <Box
+                id={styles.auth_inputBox}
+                sx={{
+                  display: "flex",
+                  alignItems: "flex-end",
+                  position: "relative",
+                }}
+              >
+                <Lock sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                <TextField
+                  onChange={handleChange}
+                  id={styles.auth_input}
+                  className={styles.auth_input}
+                  required
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  variant="standard"
+                  name="password"
+                  error={passError}
+                  value={formData.password}
+                  helperText={
+                    passError
+                      ? "Password must be at least 6 characters long"
+                      : null
+                  }
+                />
+                <IconButton
+                  className={`${styles.showPassword} ${
+                    passError && styles.errEye
+                  }`}
+                  onClick={toggleShowPassword}
+                >
+                  {!showPassword ? (
+                    <VisibilityOff className="showPassword" />
+                  ) : (
+                    <Visibility className="showPassword" />
+                  )}
+                </IconButton>
+              </Box>
+              {!user && (
+                <Box
+                  id={styles.auth_inputBox}
+                  sx={{ display: "flex", alignItems: "flex-end" }}
+                >
+                  <Lock sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                  <TextField
+                    onChange={handleChange}
+                    className={styles.auth_input}
+                    id={styles.auth_input}
+                    required
+                    type={showPassword ? "text" : "password"}
+                    label="Confirm password"
+                    name="confirmPassword"
+                    variant="standard"
+                    value={formData.confirmPassword}
+                    error={!!doesMatch}
+                    helperText={doesMatch ? "Password does not match." : null}
+                  />
+                </Box>
               )}
-            </IconButton>
-          </Box>
-          {!user && (
-            <Box
-              id={styles.auth_inputBox}
-              sx={{ display: "flex", alignItems: "flex-end" }}
-            >
-              <Lock sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-              <TextField
-                onChange={handleChange}
-                className={styles.auth_input}
-                id={styles.auth_input}
-                required
-                type={showPassword ? "text" : "password"}
-                label="Confirm password"
-                name="confirmPassword"
-                variant="standard"
-                value={formData.confirmPassword}
-                error={!!doesMatch}
-                helperText={doesMatch ? "Password does not match." : null}
-              />
-            </Box>
+            </>
           )}
         </form>
         {!user && !userMe?.result?._id && (

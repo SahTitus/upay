@@ -32,7 +32,7 @@ const initialState = {
   email: "",
   program: "",
   level: "",
-  image:"",
+  image: "",
   indexNo: "",
   password: "",
   confirmPassword: "",
@@ -42,7 +42,7 @@ const AddStudent = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initialState);
 
-  const { currentId, isAdmin, setCurrentId} = useStateContex();
+  const { currentId, isAdmin, setCurrentId } = useStateContex();
   const user = useSelector((state) =>
     currentId ? state.auth.users.find((user) => user._id === currentId) : null
   );
@@ -60,7 +60,7 @@ const AddStudent = () => {
     setOpen(false);
     setOpenPro(false);
   };
-  
+
   const [openPro, setOpenPro] = React.useState(false);
 
   const handleOpen = () => {
@@ -93,10 +93,6 @@ const AddStudent = () => {
 
   const [hasSpace, setHasSpace] = useState(true);
 
-  // useEffect(() => {
-  //   if (!user) navigate("/pay")
-  // }, [user])
-
   useEffect(() => {
     if (isAdmin && currentId) {
       setHasSpace(false);
@@ -119,21 +115,21 @@ const AddStudent = () => {
   const disableBtn =
     !formData?.name?.length > 0 ||
     !formData?.email?.length > 0 ||
-    ( !indexCond && !formData.indexNo.length > 0) ||
+    (!indexCond && !formData.indexNo.length > 0) ||
     !formData?.email?.trim() ||
     !formData?.password?.length > 0 ||
     !formData?.password?.trim() ||
     !formData?.level ||
-    hasSpace ||  hasWhiteSpace(formData?.indexNo);
+    hasSpace ||
+    hasWhiteSpace(formData?.indexNo);
 
-   const goBack = () => {
-    setCurrentId(null)
-    navigate(isAdmin ? -1 : '/')
-   }
+  const goBack = () => {
+    setCurrentId(null);
+    navigate(isAdmin ? -1 : "/");
+  };
   return (
     <div className={styles.addStudent}>
-         <div className="addStudent__navbar">
-        {/* <Sidebar toggleSlider={toggleSlider} open={open} setOpen={setOpen} /> */}
+      <div className="addStudent__navbar">
         <IconButton onClick={goBack} className={styles.menu}>
           <ArrowBack />
         </IconButton>
@@ -177,77 +173,62 @@ const AddStudent = () => {
             name="name"
           />
         </Box>
-        {/* <Box
+
+        <Box
+          id={styles.auth_inputBox}
+          sx={{ display: "flex", alignItems: "center" }}
+          fullWidth="true"
+        >
+          <School sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+
+          <FormControl fullWidth="true" sx={{ m: 1, minWidth: 200 }}>
+            <InputLabel id="demo-controlled-open-select-label">
+              Program
+            </InputLabel>
+            <Select
+              fullWidth="true"
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select"
+              open={openPro}
+              onClose={handleClose}
+              onOpen={handleOpenPro}
+              name="program"
+              label="Program"
+              value={formData.program}
+              onChange={handleChange}
+            >
+              {programs.courses.map((course, i) => (
+                <MenuItem key={i} value={course}>
+                  {course}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box
           id={styles.auth_inputBox}
           sx={{ display: "flex", alignItems: "flex-end" }}
         >
-          <School sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+          <Key sx={{ color: "action.active", mr: 1, my: 0.5 }} />
           <TextField
             onChange={handleChange}
             id={styles.auth_input}
             required
-            label="Program"
+            label="Index Number"
             variant="standard"
             className={styles.auth_input}
-            value={formData.program}
-            name="program"
+            name="indexNo"
+            value={formData.indexNo}
+            error={formData.indexNo && !indexCond}
+            helperText={
+              (!indexCond && formData.indexNo) ||
+              hasWhiteSpace(formData?.indexNo)
+                ? "Index number must start with UEB and there should not be white spaces"
+                : null
+            }
           />
-        </Box> */}
-
-<Box
-                id={styles.auth_inputBox}
-                sx={{ display: "flex", alignItems: "center" }}
-                fullWidth="true"
-              >
-                       <School sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-
-                  <FormControl   fullWidth="true" sx={{ m: 1, minWidth: 200 }}>
-                    <InputLabel id="demo-controlled-open-select-label">
-                    Program
-                    </InputLabel>
-                    <Select
-                    fullWidth="true"
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      open={openPro}
-                      onClose={handleClose}
-                      onOpen={handleOpenPro}
-                      name="program"
-                      label="Program"
-                      value={formData.program}
-                      onChange={handleChange}
-                    >
-                      {programs.courses.map((course, i)=>(
-                        <MenuItem key={i} value={course}>{course}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-         
-              </Box>
-
-
-
-              <Box
-                id={styles.auth_inputBox}
-                sx={{ display: "flex", alignItems: "flex-end" }}
-              >
-                <Key sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-                <TextField
-                  onChange={handleChange}
-                  id={styles.auth_input}
-                  required
-                  label="Index Number"
-                  variant="standard"
-                  className={styles.auth_input}
-                  name="indexNo"
-                  value={formData.indexNo}
-                  error={ formData.indexNo && !indexCond}
-                 
-                  helperText={
-                    (!indexCond && formData.indexNo) || hasWhiteSpace(formData?.indexNo) ? "Index number must start with UEB and there should not be white spaces" : null
-                  }
-                />
-              </Box>
+        </Box>
         <Box
           id={styles.auth_inputBox}
           sx={{ display: "flex", alignItems: "center" }}

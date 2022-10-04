@@ -19,9 +19,6 @@ import styles from "../styles/Pay.module.css";
 import * as programs from "../constants/programs/programs.js";
 
 const Pay = () => {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-
   const [openLevel, setOpenLevel] = React.useState(false);
   const [openPro, setOpenPro] = React.useState(false);
 
@@ -65,7 +62,6 @@ const Pay = () => {
   const handleAdmin = (e) => {
     e.preventDefault();
     dispatch(getAdmin(formData?.password, navigate));
-    // setFormData( initialState);
   };
 
   const handleSave = (e) => {
@@ -90,13 +86,12 @@ const Pay = () => {
 
   return (
     <div className={styles.pay}>
-      <div >
-        {/* <Sidebar toggleSlider={toggleSlider} open={open} setOpen={setOpen} /> */}
+      <div>
         <IconButton
           onClick={() => navigate(isAdmin ? -1 : "/")}
           className={`${styles.closeFeesForm} ${styles.menu}`}
         >
-          <ArrowBack className={styles.pay__arrowBack}/>
+          <ArrowBack className={styles.pay__arrowBack} />
         </IconButton>
       </div>
       <div className={styles.form__container}>
@@ -132,39 +127,17 @@ const Pay = () => {
                 />
               </Box>
             ) : (
-              // <Box
-              //   id={styles.auth_inputBox}
-              //   sx={{ display: "flex" }}
-              //   className={styles.pay__typeInput}
-              // >
-              //   <TextField
-              //     error={isNumber}
-              //     helperText={isNumber ? "Enter a valid data." : null}
-              //     onChange={handleChange}
-              //     fullWidth
-              //     id={styles.pay_input}
-              //     required
-              //     label="Program"
-              //     variant="outlined"
-              //     value={formData.program}
-              //     className={styles.pay__input}
-              //     name="program"
-              //   />
-              // </Box>
-
               <Box
-              id={styles.auth_inputBox}
-              sx={{ display: "flex", alignItems: "center" }}
-              fullWidth="true"
-            >
-                     {/* <School sx={{ color: "action.active", mr: 1, my: 0.5 }} /> */}
-
-                <FormControl   fullWidth="true" sx={{ m: 1, minWidth: 200 }}>
+                id={styles.auth_inputBox}
+                sx={{ display: "flex", alignItems: "center" }}
+                fullWidth="true"
+              >
+                <FormControl fullWidth="true" sx={{ m: 1, minWidth: 200 }}>
                   <InputLabel id="demo-controlled-open-select-label">
-                  Program
+                    Program
                   </InputLabel>
                   <Select
-                  fullWidth="true"
+                    fullWidth="true"
                     labelId="demo-controlled-open-select-label"
                     id="demo-controlled-open-select"
                     open={openPro}
@@ -175,13 +148,12 @@ const Pay = () => {
                     value={formData.program}
                     onChange={handleChange}
                   >
-                    {programs.courses.map(course=>(
+                    {programs.courses.map((course) => (
                       <MenuItem value={course}>{course}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
-       
-            </Box>
+              </Box>
             )}
           </div>
           <div className={styles.pay__inputFlex}>

@@ -41,7 +41,6 @@ const RecList = () => {
   return (
     <div className={styles.students}>
             <div className="arrowBack__navbar">
-        {/* <Sidebar toggleSlider={toggleSlider} open={open} setOpen={setOpen} /> */}
         <IconButton onClick={() => navigate(-1)} className={styles.menu}>
           <ArrowBack />
         </IconButton>

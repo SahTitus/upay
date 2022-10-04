@@ -11,13 +11,6 @@
     padding: 5px 3px;
 }
 
-/* .navbar__topColor {
-    background-color: #2fb3ff !important;   
-    height: 50px;
-    width: 100% ;
-
-} */
-
 .signIn__wrapper {
     align-items: center !important;
     display: flex !important;
@@ -54,13 +47,6 @@
     width: 30px !important;
     cursor: pointer;
 }
-
-/* .css-4t3x6l-MuiPaper-root-MuiDrawer-paper{} */
-
-/* .sidebar {
-    width: 20% !important;
-    background-color: red !important;
-} */
 
 .side__user {
     display: flex;

@@ -1,97 +1,91 @@
-.profile{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+.profile {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.profile__header{
-    display: flex;
-    background-color: rgb(255, 255, 255);
-    padding: 10px;
+.profile__header {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
 }
 
-.profile__card{
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 250px;
+.profile__card {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 250px;
 }
 
-.profile__avatar{
-    height: 80px !important;
-    width: 80px !important;
-    margin-bottom: -10px;
+.profile__avatar {
+  height: 80px !important;
+  width: 80px !important;
+  margin-bottom: -10px;
 }
 
-.profile__cardInfo{
-    display: flex;
-    flex-direction: column;
-    margin-top: 15px;
-    align-items: center;
+.profile__cardInfo {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  align-items: center;
 }
 
 .profile__cardInfo h4 {
-    text-align: center;
-    font-size: 20px;
+  text-align: center;
+  font-size: 20px;
 }
 
-.profile__cardInfoFollow{
-    display: flex;
-    align-items: center;
-    color: gray;
-    margin: 5px 0;
+.profile__cardInfoFollow {
+  display: flex;
+  align-items: center;
+  color: gray;
+  margin: 5px 0;
 }
 
-.bullet{
-    font-size: 8px !important;
+.bullet {
+  font-size: 8px !important;
 }
 
-.followers{
-    margin-right: 10px;
+.followers {
+  margin-right: 10px;
 }
 
-.following{
-    margin-left: 10px;
+.following {
+  margin-left: 10px;
 }
 
-.profile__cardButtons{
-    display: flex;
+.profile__cardButtons {
+  display: flex;
 }
 
 .profile__cardButton {
-    display: flex !important;
-    align-items: center !important;
-    margin:  10px !important;
-    border-radius: 30px !important;
-    padding: 8px !important;
-    width: 120px;
-    background-color: #dae8fd !important;
-    color: rgb(0, 0, 0) !important;
-    font-size: 15px;
-    border-color: rgb(29, 214, 214) !important;
+  display: flex !important;
+  align-items: center !important;
+  margin: 10px !important;
+  border-radius: 30px !important;
+  padding: 8px !important;
+  width: 120px;
+  background-color: #dae8fd !important;
+  color: rgb(0, 0, 0) !important;
+  font-size: 15px;
+  border-color: rgb(29, 214, 214) !important;
 }
 
 .editIcon {
-    color: #0267ff ;
-    margin-right: 10px;
+  color: #0267ff;
+  margin-right: 10px;
 }
 
 .logoutIcon {
-    color: rgb(224, 81, 81);
-    margin-right: 10px;
+  color: rgb(224, 81, 81);
+  margin-right: 10px;
 }
 
-/* .profile__cardButton{
-    margin-right: 8px;
-    font-size: 18px;
-    color: gray;
-} */
-
-.profile__tabs{
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    position: relative;
+.profile__tabs {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  position: relative;
 }

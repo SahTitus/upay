@@ -23,7 +23,6 @@ const Students = () => {
   return (
     <div className={styles.students}>
       <div className="arrowBack__navbar">
-       
         <IconButton onClick={() => navigate(-1)} className={styles.menu}>
           <ArrowBack />
         </IconButton>
@@ -35,8 +34,6 @@ const Students = () => {
       </div>
 
       <div className={styles.list}>
-        {/* {} */}
-
         {isLoading ? (
           <div className={styles.loading}>
             {isLoading && (

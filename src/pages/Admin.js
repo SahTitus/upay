@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress } from "@mui/material";
 import AdmTranslist from "../components/AdmTranslist";
 import AnaCard from "../components/AnaCard";
 import styles from "../styles/Admin.module.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, getUsers } from "../actions/auth";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import Navbar from "../components/Navbar";
 import { useStateContex } from "../store/StateProvider";
 import { Add, Logout } from "@mui/icons-material";
 import { logoutAdmin } from "../redux/auth";
-// import Table from "../components/table/DataTable";
+import SearchBar from "../components/SearchBar";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,12 @@ const Admin = () => {
   const userLocal = JSON.parse(localStorage.getItem("profile"));
   const admin = JSON.parse(localStorage.getItem("admin"));
   const { setIsAdmin } = useStateContex();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchData, setSearchData] = useState([]);
 
+  console.log(searchData);
+  console.log(searchTerm);
+ 
   const { users, isLoading } = useSelector((state) => state.auth);
 
   const amountValues = users.map((user) =>
@@ -26,7 +31,7 @@ const Admin = () => {
   );
 
   const transUsers = users.filter((user) => user.transData.length !== 0);
-  const sortTransHistory = transUsers
+  const transHistory = transUsers
     .slice()
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
@@ -63,28 +68,25 @@ const Admin = () => {
       dispatch(getUser(id));
     }
 
-    setIsAdmin(false)
+    setIsAdmin(false);
     if (!admin) navigate("/addFees");
-
   }, []);
 
   const logOut = () => {
     dispatch(logoutAdmin());
-    // window.location.reload(true);
-    navigate("/")
-    // closeDrawer()
+    navigate("/");
   };
 
   return (
     <div className={styles.admin}>
       <Navbar />
       <div className={styles.topButtons}>
-        <Link onClick={()=>setIsAdmin(true)} to='/addFees'>
-        <Button className={styles.topButton}>
-          <Add className={styles.topButton__add} /> Add Fees
-        </Button>
+        <Link onClick={() => setIsAdmin(true)} to="/addFees">
+          <Button className={styles.topButton}>
+            <Add className={styles.topButton__add} /> Add Fees
+          </Button>
         </Link>
-        <Button   onClick={logOut} className={styles.topButton}>
+        <Button onClick={logOut} className={styles.topButton}>
           {" "}
           <Logout className={styles.topButton__log} /> Log out
         </Button>
@@ -125,7 +127,13 @@ const Admin = () => {
               <Button className={styles.transViewBtn}>View All</Button>
             </Link>
           </div>
-          {/* <Table data={sortTransHistory} /> */}
+
+          <SearchBar
+            setSearchData={setSearchData}
+            setSearchTerm={setSearchTerm}
+            data={transHistory}
+          />
+
           {isLoading ? (
             <div className={styles.loading}>
               {isLoading && (
@@ -137,8 +145,9 @@ const Admin = () => {
             </div>
           ) : (
             <>
-              <div className={styles.mobile__list}>
-                {sortTransHistory.map((user, i) =>
+              {searchTerm.length > 0 ? (
+                <div className={styles.mobile__list}>
+                {searchData.map((user, i) =>
                   user.transData.map((data) => (
                     <AdmTranslist
                       key={i + data.amount}
@@ -153,8 +162,30 @@ const Admin = () => {
                   ))
                 )}
               </div>
+              ) : (
+                <div className={styles.mobile__list}>
+                {transHistory.map((user, i) =>
+                  user.transData.map((data) => (
+                    <AdmTranslist
+                      key={i + data.amount}
+                      name={user.name}
+                      image={data.image}
+                      indexNo={data?.indexNo}
+                      status={data.status === "success" ? true : false}
+                      dep={user.program}
+                      amount={data.amount}
+                      timestamp={data.timestamp}
+                    />
+                  ))
+                )}
+              </div>
+              )}
               <div className={styles.large__list}>
-                <AdmTranslist users={sortTransHistory} />
+                { searchTerm.length > 0 ? (
+                  <AdmTranslist users={searchData} />
+                ):(
+                  <AdmTranslist users={transHistory} />
+                )}
               </div>
             </>
           )}
