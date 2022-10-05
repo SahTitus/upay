@@ -34,7 +34,6 @@ function SearchBar({ setSearchData, setSearchTerm, data }) {
               value={wordEntered}
               onChange={handleFilter}
             />
-
           </div>
         </form>
       </div>

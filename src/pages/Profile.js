@@ -7,8 +7,6 @@ import { logout } from "../redux/auth";
 import { Avatar, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 
-
-
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
