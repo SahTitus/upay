@@ -7,6 +7,14 @@
     display: flex;
     flex-direction: column;
     margin: 40px;
+	box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.form__container h2 {
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .form {
@@ -114,3 +122,43 @@
 .signIn__buttonDisable {
 	background-color: #788dac !important;
 }
+
+
+
+@media screen and (min-width: 580px) {
+	.form__container {
+	  width: 500px;
+	  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.1);
+	  border-radius: 10px;
+	  padding: 20px;
+	}
+
+	.form__container h2 {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+  
+	.auth {
+	  justify-content: center;
+	  align-items: center;
+	}
+  }
+@media screen and (min-width: 700px) {
+	.form__container {
+	  width: 600px;
+	  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.1);
+	  padding: 20px;
+	  border-radius: 10px;
+	}
+
+	.form__container h2 {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+  
+	.auth {
+	  justify-content: center;
+	  align-items: center;
+	}
+  }
+  
