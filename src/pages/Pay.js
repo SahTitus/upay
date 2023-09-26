@@ -21,11 +21,9 @@ import styles from "../styles/Pay.module.css";
 import usePaystack from "../utils/Paystack";
 
 const Pay = () => {
-  const [openLevel, setOpenLevel] = React.useState(false);
   const [openType, setOpenType] = React.useState(false);
   const [formData, setFormData] = useState({
     amount: "",
-    level: "",
     type: "",
   });
 
@@ -44,7 +42,6 @@ const Pay = () => {
       amount: formData.amount,
       paymentType: formData.type,
       email: user.email,
-      level: formData.level,
       status: reference.status,
       timestamp: moment().format("D MMMM YYYY, h:mm a"),
     };
@@ -59,16 +56,14 @@ const Pay = () => {
 
   const handleClose = () => {
     setOpenType(false);
-    setOpenLevel(false);
   };
 
   const handleOpen = (a, b) => {
     if (a) {
       setOpenType(true);
-      setOpenLevel(false);
+
     } else {
       setOpenType(false);
-      setOpenLevel(true);
     }
   };
 
@@ -85,7 +80,6 @@ const Pay = () => {
   const disable =
     !formData.amount.length ||
     isNumber ||
-    formData.level === "" ||
     formData.type === "";
 
   function hasWhiteSpace(s) {
@@ -170,39 +164,7 @@ const Pay = () => {
                 name="amount"
               />
             </Box>
-            <Box
-              id={styles.auth_inputBox}
-              sx={{ display: "flex", alignItems: "center" }}
-            >
-              <div>
-                <FormControl
-                  required
-                  className={styles.pay__levelInput}
-                  sx={{ m: 1 }}
-                >
-                  <InputLabel id="demo-controlled-open-select-label">
-                    Level
-                  </InputLabel>
-                  <Select
-                    sx={{}}
-                    labelId="demo-controlled-open-select-label"
-                    id="demo-controlled-open-select"
-                    open={openLevel}
-                    onClose={handleClose}
-                    onOpen={() => handleOpen("", "b")}
-                    value={formData.level}
-                    name="level"
-                    label="Level"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={100}>100</MenuItem>
-                    <MenuItem value={200}>200</MenuItem>
-                    <MenuItem value={300}>300</MenuItem>
-                    <MenuItem value={400}>400</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-            </Box>
+        
           </div>
 
           <Button

@@ -24,7 +24,7 @@ const Invoice = () => {
             <p>{user?.name}</p>
             <p>{user?.indexNo || user?.email}</p>
             <p>{user?.program}</p>
-            <p> Level {payData?.level}</p>
+            <p> Level {user?.level}</p>
           </div>
           <div className={styles.payment__date}>
             <p className={styles.studHeadings}>Payment date</p>
